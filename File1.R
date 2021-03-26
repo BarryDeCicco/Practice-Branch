@@ -1,3 +1,4 @@
 # File1
 
-Barry added a line, and then pushed it to 'master'
+First line added in master.
+
