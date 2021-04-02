@@ -1,0 +1,67 @@
+---
+title: "Mapping"
+author: "Barry DeCicco"
+date: "4/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Mapping in R
+
+'Mapping' here means any of a number of methods to take a problem, break it into parts, apply some command/function to the parts, and then reassembling the results back into a unified object.
+
+#### Reading CSV files, Method 1: 
+
+ This is from:  https://riptutorial.com/r/example/24397/import-multiple-csv-files
+ 
+- The first step is to set the working directory to the 'data' folder, and to store the old working directory.
+
+- The second step is to create a list of the files in that working directory.
+
+- The third step is to use the lapply command to that list, using the read.csv function, creating a 'data_list' wich is a list of data frames.
+
+- The fourth step is to combine the elements of that list into a single data frame, by stacking them (rbind stacks row vertically, cbind attaches columns horizontally).
+
+```{r method1, include=TRUE}
+
+
+oldwd <- setwd('Data')
+files = list.files(pattern="*.csv")
+files
+data_list = lapply(files, read.csv)
+data_list
+
+df <- do.call(rbind, data_list)
+```
+
+Information on the lapply function can be found at:  https://www.guru99.com/r-apply-sapply-tapply.html
+
+
+## Method 2:  Using the 'plyr' package
+
+From:  https://datascienceplus.com/how-to-import-multiple-csv-files-simultaneously-in-r-and-create-a-data-frame/
+
+Plyr instructions are found at:  https://cran.r-project.org/web/packages/plyr/index.html
+
+
+- Load the packages (install if needed).
+- set up a file list 'myfiles'.
+- Set the directory to 'Data'.
+- use the ldply to go through the 'myfiles' list of files, applying the 'read_csv' function.
+
+```{r pressure, echo=TRUE}
+library(plyr)
+library(readr)  # from the tidyverse
+
+myfiles = list.files(path=mydir, pattern="*.csv", full.names=TRUE)
+myfiles
+
+mydir = "Data"
+
+dat_csv = ldply(myfiles, read_csv)
+dat_csv
+```
+
