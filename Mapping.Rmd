@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r method1, include=TRUE}
 
-
+#  getwd(), setwd() 
 oldwd <- setwd('Data')
 files = list.files(pattern="*.csv")
 files
@@ -53,15 +53,18 @@ Plyr instructions are found at:  https://cran.r-project.org/web/packages/plyr/in
 - use the ldply to go through the 'myfiles' list of files, applying the 'read_csv' function.
 
 ```{r pressure, echo=TRUE}
+getwd()
 library(plyr)
 library(readr)  # from the tidyverse
 
+mydir = "Data"
 myfiles = list.files(path=mydir, pattern="*.csv", full.names=TRUE)
 myfiles
 
-mydir = "Data"
-
 dat_csv = ldply(myfiles, read_csv)
 dat_csv
+
+dim(dat_csv)
+class(dat_csv)
 ```
 
